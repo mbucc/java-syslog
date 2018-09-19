@@ -1,8 +1,4 @@
-# kotlin-syslog
-
-Log to syslog daemon from Kotlin or Java.
-
-# API
+# Ways various languages interface with syslog
 
 ## BSD
 
