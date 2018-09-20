@@ -1,5 +1,8 @@
 package eventarelli.syslog;
 
+/**
+ * What level is the message; for example, informational or debugging.
+ */
 public enum Level {
   LOG_EMERG   (0), /* system is unusable */
   LOG_ALERT   (1), /* action must be taken immediately */

@@ -1,7 +1,7 @@
 package eventarelli.syslog;
 
 /**
- * What part of the system is logging the message
+ * What part of the system is logging the message; for example, the mail subsystem.
  */
 public enum Facility {
   

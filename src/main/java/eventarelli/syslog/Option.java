@@ -1,5 +1,8 @@
 package eventarelli.syslog;
 
+/**
+ * An option to pass to openlog; for example, log message to standard error as well as syslog.
+ */
 public enum Option {
   LOG_PID(0x01),      /* log the pid with each message             */
   LOG_CONS(0x02),     /* log on the console if errors in sending   */
