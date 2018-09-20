@@ -52,4 +52,10 @@ class SyslogTest {
     Syslog.debug("hello world: %s %s", "and", "another", "thing ...");
   }
 
+  @Test
+  void numericAnchorPrintsADifferentIntegerEachTime() {
+    Syslog.openlog("test_syslog", Facility.LOG_USER, Option.LOG_PERROR);
+    Syslog.debug("hello world: %d %s", "42", "another");
+  }
+
 }
