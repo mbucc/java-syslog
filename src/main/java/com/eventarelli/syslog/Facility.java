@@ -1,4 +1,4 @@
-package eventarelli.syslog;
+package com.eventarelli.syslog;
 
 /**
  * What part of the system is logging the message; for example, the mail subsystem.

@@ -1,4 +1,4 @@
-package eventarelli.syslog;
+package com.eventarelli.syslog;
 
 /**
  * An option to pass to openlog; for example, log message to standard error as well as syslog.

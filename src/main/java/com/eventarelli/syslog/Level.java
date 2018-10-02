@@ -1,4 +1,4 @@
-package eventarelli.syslog;
+package com.eventarelli.syslog;
 
 /**
  * What level is the message; for example, informational or debugging.

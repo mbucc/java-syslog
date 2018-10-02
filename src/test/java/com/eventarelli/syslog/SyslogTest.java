@@ -1,4 +1,4 @@
-package eventarelli.syslog;
+package com.eventarelli.syslog;
 
 import org.junit.jupiter.api.Test;
 

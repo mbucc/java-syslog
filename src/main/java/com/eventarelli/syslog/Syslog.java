@@ -1,10 +1,11 @@
-package eventarelli.syslog;
+package com.eventarelli.syslog;
 
 import com.sun.jna.Library;
 import com.sun.jna.Native;
 
 /**
- * Wrapper around openlib and syslog methods from the operating system's library that controls the system log.
+ * Wrapper around openlib and syslog methods from the operating system's library that controls the
+ * system log.
  */
 public class Syslog {
 
@@ -43,7 +44,7 @@ public class Syslog {
 
   public static void openlog(String ident, Facility facility, Option... logopts) {
     int opts = 0;
-    for (Option o: logopts) {
+    for (Option o : logopts) {
       opts |= o.asInt();
     }
     Clib.INSTANCE.openlog(ident, opts, facility.asInt());
@@ -60,7 +61,8 @@ public class Syslog {
   /**
    * Log a message at LOG_INFO level.
    *
-   * <p>Takes a printf style list of strings; for example, Syslog.debug("%s is the %s", "42", "answer");</p>
+   * <p>Takes a printf style list of strings; for example, Syslog.debug("%s is the %s", "42",
+   * "answer");</p>
    * <p>Note that the %s is the only formatting anchor that makes sense, as all arguments
    * are strings.</p>
    */
@@ -73,11 +75,12 @@ public class Syslog {
   /**
    * Print the message "hello world!" with ident "test_syslog" to the LOG_USER facility and also
    * print the message to stderr.
+   *
    * @param args Ignored
    */
 
   public static void main(String[] args) {
-    Syslog.openlog("test_syslog", Facility.LOG_USER, Option.LOG_PERROR);
+    openlog("test_syslog", Facility.LOG_USER, Option.LOG_PERROR);
     Syslog.info("hello world!");
   }
 
