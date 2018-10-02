@@ -1,13 +1,15 @@
 plugins {
     id 'java'
     id 'maven'
+    id "maven-publish"
     id 'signing'
 }
 
 group 'com.eventarelli.syslog'
-version '1.0.0'
+version '2.0.0'
 
 repositories {
+    mavenLocal()
     mavenCentral()
 }
 
@@ -23,11 +25,13 @@ dependencies {
 
 
 
+
+
 // -------------------------------------------------------------------------------------------
 //
-//                P U B L I S H    T O    M A V E N    C E N T R A L
+//                U P L O A D    T O    M A V E N    C E N T R A L
 //
-// ref: https://central.sonatype.org/pages/gradle.html
+//      ref: https://central.sonatype.org/pages/gradle.html
 // -------------------------------------------------------------------------------------------
 
 // Publish JavaDoc
@@ -92,6 +96,29 @@ uploadArchives {
                         email 'mark@eventarelli.com'
                     }
                 }
+            }
+        }
+    }
+}
+
+// -------------------------------------------------------------------------------------------
+//
+//                P U B L I S H    T O    ~ / . m 2
+//
+//      For testing locally.
+// -------------------------------------------------------------------------------------------
+
+
+publishing {
+    publications {
+        JavaSyslog(MavenPublication) {
+            artifactId = 'java-syslog'
+            from components.java
+            artifact sourcesJar
+            artifact javadocJar
+            pom {
+                name = 'syslog-monitor'
+                description = 'Log metrics to syslog'
             }
         }
     }
