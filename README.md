@@ -6,11 +6,17 @@ to log to syslog from Java.
 Sample usage:
 
 ```bash
-$ ./gradlew build
+$ ./gradlew jar
 $ curl -L https://github.com/java-native-access/jna/raw/master/dist/jna.jar > jna.jar
-$ java -classpath ./build/libs/java-syslog-1.0.0.jar:jna.jar eventarelli.syslog.Syslog
-Sep 18 20:48:57  test_syslog[56407] <Info>: hello world!
+$ java -classpath ./build/libs/java-syslog-2.0.0.jar:jna.jar com.eventarelli.syslog.Syslog
+Oct  2 18:46:59  test_syslog[72914] <Info>: hello world!
 $ 
 ```
+
+Following Dave Cheney's [suggested approach](https://dave.cheney.net/2015/11/05/lets-talk-about-logging), 
+only provides info and debug.
+
+
+
 
 
