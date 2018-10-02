@@ -1,31 +1,14 @@
 plugins {
     id 'java'
-    id 'java-library'
-    id 'maven-publish'
+    id 'maven'
+    id 'signing'
 }
 
-group 'eventarelli'
+group 'com.eventarelli.syslog'
 version '1.0.0'
-
-sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
-}
-
-publishing {
-    publications {
-        myLibrary(MavenPublication) {
-            from components.java
-        }
-    }
-
-    repositories {
-        maven {
-            name = 'myRepo'
-            url = "file://${buildDir}/repo"
-        }
-    }
 }
 
 dependencies {
@@ -37,3 +20,80 @@ dependencies {
             'org.junit.jupiter:junit-jupiter-engine:5.1.0'
     )
 }
+
+
+
+// -------------------------------------------------------------------------------------------
+//
+//                P U B L I S H    T O    M A V E N    C E N T R A L
+//
+// ref: https://central.sonatype.org/pages/gradle.html
+// -------------------------------------------------------------------------------------------
+
+// Publish JavaDoc
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
+}
+
+// Publish sources jar
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+artifacts {
+    archives javadocJar, sourcesJar
+}
+
+// Sign artifacts
+signing {
+    useGpgCmd()
+    sign configurations.archives
+}
+
+
+// Upload artifacts
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            pom.project {
+                name 'java-syslog'
+                packaging 'jar'
+                description 'Log to syslog from Java using Java Native Access (JNA).'
+                url 'https://github.com/mbucc/java-syslog'
+
+                scm {
+                    connection 'scm:git:https://github.com/mbucc/java-syslog.git'
+                    developerConnection 'scm:git:https://github.com/mbucc/java-syslog.git'
+                    url 'https://github.com/mbucc/java-syslog'
+                }
+
+                licenses {
+                    license {
+                        name 'The 2-Clause BSD License'
+                        url 'https://github.com/mbucc/java-syslog/blob/master/LICENSE'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id 'mkbucc'
+                        name 'Mark Bucciarelli'
+                        email 'mark@eventarelli.com'
+                    }
+                }
+            }
+        }
+    }
+}
+
